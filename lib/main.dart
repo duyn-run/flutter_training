@@ -7,6 +7,10 @@ void main() {
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
+  
+  void _changeStateAppBar(String changeState) {
+    print(changeState);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,7 @@ class MainApp extends StatelessWidget {
         ),
         body: Container(
           color: const Color.fromRGBO(214, 215, 239, 1),
-          child: const MainTodo(),
+          child: MainTodo(changeStateAppBar: (String type) => {print(type)},),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const [

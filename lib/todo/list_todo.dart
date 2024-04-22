@@ -7,8 +7,12 @@ class ListToDo extends StatelessWidget {
   const ListToDo({
     super.key,
     required this.listToDo,
+    required this.onEditTask,
+    required this.onRemoveTask,
   });
   final List<Task> listToDo;
+  final void Function(Task task, int idx) onEditTask;
+  final void Function(int idx) onRemoveTask;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class ListToDo extends StatelessWidget {
                 color: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.all(20),
-                  child: Item(task: listToDo[index]),
+                  child: Item(task: listToDo[index], onRemoveTask: onRemoveTask, onEditTask: onEditTask, idx: index),
                 ),
               ),
             ),
