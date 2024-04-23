@@ -3,8 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:todo_app_training/models/task.dart';
 import 'package:todo_app_training/todo/item.dart';
 
-class ListToDo extends StatelessWidget {
-  const ListToDo({
+class ListToDoComplete extends StatelessWidget {
+  const ListToDoComplete({
     super.key,
     required this.listToDo,
     required this.onEditTask,

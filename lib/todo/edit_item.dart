@@ -29,7 +29,8 @@ class _EditItemState extends State<EditItem> {
       final Task itemTask = Task(id: randomNumber1.toString(),
           subtext: _subTitleController.text,
           title: _titleController.text,
-          date: DateTime.now()
+          date: DateTime.now(),
+          isCheck: false,
           );
       widget.onCompleteEditItem(itemTask, widget.idx);
 
@@ -49,6 +50,10 @@ class _EditItemState extends State<EditItem> {
 
   @override
   Widget build(BuildContext context) {
+
+    double screenWidth = MediaQuery.of(context).size.width;
+    double desiredWidth = screenWidth * 0.3; // 50% width
+
     _titleController.text = widget.editItem.title;
     _subTitleController.text = widget.editItem.subtext;
     return Padding(
@@ -71,13 +76,32 @@ class _EditItemState extends State<EditItem> {
                 ),
               ),
               const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () {
-                  _submitEditTask();
-                },
-                child: const Text('EDIT'),
-                style: ElevatedButton.styleFrom(
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      _submitEditTask();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(desiredWidth, 40), // Set your desired width and height
+                      backgroundColor: const Color.fromRGBO(147, 149, 211, 1),
+                    ),
+                    child: const Text('Update', style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1),),),
+                  ),
+                  const SizedBox(width: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the bottom sheet
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(desiredWidth, 40), // Set your desired width and height
+                      backgroundColor: const Color.fromRGBO(147, 149, 211, 1),
+                    ),
+                    child: const Text('Cancel', style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1),),),
+                  ),
+                ],
               ),
             ],
           ),

@@ -9,11 +9,15 @@ class Item extends StatefulWidget {
       required this.task,
       required this.onEditTask,
       required this.onRemoveTask,
-      required this.idx});
+      required this.onUpdateCheck,
+      required this.idx,
+      required this.indexNavBar});
   final Task task;
   final void Function(Task task, int idx) onEditTask;
   final void Function(int idx) onRemoveTask;
+  final void Function(int idx) onUpdateCheck;
   final int idx;
+  final int indexNavBar;
 
   @override
   State<Item> createState() {
@@ -21,9 +25,12 @@ class Item extends StatefulWidget {
   }
 }
 class _ItemState extends State<Item> {
+  /// handle edit
   _editTask() {
     widget.onEditTask(widget.task, widget.idx);
   }
+
+  /// handle delete task
   _deleteTask() {
 
     showDialog(
@@ -51,12 +58,11 @@ class _ItemState extends State<Item> {
       },
     );
 
+  }
 
-
-
-
-
-    
+  /// handle update checked task
+  _checkedTask() {
+    widget.onUpdateCheck(widget.idx);
   }
 
   @override
@@ -81,6 +87,7 @@ class _ItemState extends State<Item> {
           ],
         ),
         const Spacer(),
+        widget.indexNavBar == 0 ?
         Row(mainAxisSize: MainAxisSize.max, children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -98,12 +105,15 @@ class _ItemState extends State<Item> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.check),
+            child: widget.task.isCheck == true ? IconButton(
+              onPressed: () {_checkedTask();},
+              icon: const Icon(Icons.check_circle_outline),
+            ) : IconButton(
+              onPressed: () {_checkedTask();},
+              icon: const Icon(Icons.circle_outlined),
             ),
           ),
-        ]),
+        ]) : const SizedBox(),
       ],
     );
   }

@@ -25,7 +25,8 @@ class _NewItemState extends State<NewItem> {
       final Task itemTask = Task(id: randomNumber1.toString(),
           subtext: _subTitleController.text,
           title: _titleController.text,
-          date: DateTime.now()
+          date: DateTime.now(),
+          isCheck: false,
           );
       widget.onAddItem(itemTask);
       Navigator.pop(context);
@@ -64,9 +65,11 @@ class _NewItemState extends State<NewItem> {
                 onPressed: () {
                   _submitAddTask();
                 },
-                child: const Text('ADD'),
                 style: ElevatedButton.styleFrom(
+                  minimumSize: Size(MediaQuery.of(context).size.width, 40), // Set your desired width and height
+                  backgroundColor: const Color.fromRGBO(147, 149, 211, 1),
                 ),
+                child: const Text('ADD', style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1),),),
               ),
             ],
           ),
