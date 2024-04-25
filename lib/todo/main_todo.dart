@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_training/screen/add_screen.dart';
+import 'package:todo_app_training/screen/edit_screen.dart';
 import 'package:todo_app_training/todo/list_todo.dart';
 import 'package:todo_app_training/todo/list_todo_complete.dart';
 import 'package:todo_app_training/todo/add_item.dart';
@@ -92,31 +94,37 @@ class _MainTodo extends State<MainTodo> {
     ),
   ];
 
-  /// handle open modal add item
-  void _openAddItemTodo() {
-    widget.changeTitleApp('Add');
-    showBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return Container(
-          width: MediaQuery.of(context)
-              .size
-              .width, // Set the width to the screen width
-          child: NewItem(
-            onAddItem: _addItem,
-          ), // Replace with your desired content
-        );
-      },
-    ).closed.then((value) {
-      widget.changeTitleApp('');
-    });
-  }
+  // /// handle open modal add item
+  // void _openAddItemTodo() {
+  //   widget.changeTitleApp('Add');
+  //   showBottomSheet(
+  //     context: context,
+  //     builder: (BuildContext bc) {
+  //       return Container(
+  //         width: MediaQuery.of(context)
+  //             .size
+  //             .width, // Set the width to the screen width
+  //         child: NewItem(
+  //           onAddItem: _addItem,
+  //         ), // Replace with your desired content
+  //       );
+  //     },
+  //   ).closed.then((value) {
+  //     widget.changeTitleApp('');
+  //   });
+  // }
 
   /// handle add item into list task when submit
   void _addItem(Task itemTask) {
     setState(() {
       listToDo.add(itemTask);
     });
+  }
+
+  /// handle open modal add item
+  void _openAddItemTodo() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (ctx) => AddScreen(onAddItem: _addItem)));
   }
 
   /// handle complete edit item
@@ -146,20 +154,34 @@ class _MainTodo extends State<MainTodo> {
     });
   }
 
+  // /// handle show modal task
+  // void _editItem(Task itemTask, int idx) {
+  //   widget.changeTitleApp('Edit');
+  //   showBottomSheet(
+  //     context: context,
+  //     builder: (ctx) => EditItem(
+  //       onCompleteEditItem: _completeEditItem,
+  //       editItem: itemTask,
+  //       idx: idx,
+  //     ),
+  //   ).closed.then((value) {
+  //     widget.changeTitleApp('');
+  //   });
+
+  // }
+
   /// handle show modal task
   void _editItem(Task itemTask, int idx) {
-    widget.changeTitleApp('Edit');
-    showBottomSheet(
-      context: context,
-      builder: (ctx) => EditItem(
-        onCompleteEditItem: _completeEditItem,
-        editItem: itemTask,
-        idx: idx,
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (ctx) => EditScreen(
+          onCompleteEditItem: _completeEditItem,
+          editItem: itemTask,
+          idx: idx,
+        ),
       ),
-    ).closed.then((value) {
-      widget.changeTitleApp('');
-    });
-    ;
+    );
   }
 
   @override
