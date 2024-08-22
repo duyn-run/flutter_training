@@ -59,6 +59,9 @@ class _NewMessageState extends State<NewMessages> {
               autocorrect: true,
               enableSuggestions: true,
               decoration: const InputDecoration(labelText: 'Send a message...'),
+              onSubmitted: (String value) {
+                _submitMessage();
+              },
             ),
           ),
           IconButton(

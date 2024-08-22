@@ -68,9 +68,8 @@ class ChatMessages extends StatelessWidget {
                 isMe: authenticatedUser.uid == currentMessageUserId,
               );
             } else {
-              
               return MessageBubble.first(
-                  userImage: chatMessages['image_url'],
+                  userImage: chatMessages['userImage'],
                   username: chatMessages['username'],
                   message: chatMessages['text'],
                   isMe: authenticatedUser.uid == currentMessageUserId);

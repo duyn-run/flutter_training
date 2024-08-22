@@ -23,13 +23,13 @@ class _AuthScreenState extends State<AuthScreen> {
   var _entreredEmail = '';
   var _enteredPassword = '';
   File? _selectedImage;
+  String? _selectedAvatar;
   var _isAuthenticating = false;
   var _enteredUsername = '';
 
   void _submit() async {
     final isValid = _form.currentState!.validate();
-    print(isValid);
-    print(_isLogin);
+
 
     // if (!isValid || !_isLogin && _selectedImage == null) {
     if (!isValid) {
@@ -56,7 +56,7 @@ class _AuthScreenState extends State<AuthScreen> {
         //     .child('${userCredentials.user!.uid}.jpg');
 
         // await storageRef.putFile(_selectedImage!);
-        final imageUrl = '';
+        final imageUrl = _selectedImage;
         // final imageUrl = await storageRef.getDownloadURL();
         // print(imageUrl);
 
@@ -66,7 +66,7 @@ class _AuthScreenState extends State<AuthScreen> {
             .set({
           'username': _enteredUsername,
           'email': _entreredEmail,
-          'image_url': imageUrl
+          'image_url': _selectedAvatar
         });
       }
     } on FirebaseAuthException catch (error) {
@@ -116,6 +116,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                 onPickImage: (pickedImage) {
                                   _selectedImage = pickedImage;
                                 },
+                                onPickAvatar: (pickedAvatar) {
+                                  _selectedAvatar = pickedAvatar;
+                                }
                               ),
                             TextFormField(
                               decoration: const InputDecoration(
